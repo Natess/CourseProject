@@ -1,5 +1,6 @@
 ﻿using Main;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -47,9 +48,28 @@ namespace Controller
                 var newTransform = spawnPointController.GetRandomCrystalPoint();
                 var crystal = Spawn(newTransform.position);
                 if (NetworkServer.active)
+                {
                     NetworkServer.Spawn(crystal, AssetId);
+                    //StartCoroutine(MoveAround(crystal));
+                }
             }
         }
+
+        //IEnumerator MoveAround(GameObject crystal)
+        //{
+        //    while (crystal)
+        //    {
+        //        crystal.transform.position += Vector3.up;
+        //        yield return new WaitForSeconds(2);
+        //        crystal.transform.position += Vector3.left;
+        //        yield return new WaitForSeconds(2);
+        //        crystal.transform.position += Vector3.down;
+        //        yield return new WaitForSeconds(2);
+        //        crystal.transform.position += Vector3.right;
+        //        yield return new WaitForSeconds(2);
+
+        //    }
+        //}
 
         internal void DecreaseCount()
         {

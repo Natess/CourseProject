@@ -1,6 +1,7 @@
 using Characters;
 using Controller;
 using Messages;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -30,11 +31,19 @@ namespace Main
         public override void OnStartServer()
         {
             base.OnStartServer();
+            StartCoroutine(WaitOneSecond());
+
             NetworkServer.RegisterHandler(101, SetName);
 
             spawnPointsController = Singleton<SpawnPointsController>.Instance;
             crystalSpawnController.AllCollected += onAllCollected;
         }
+
+        private IEnumerator WaitOneSecond()
+        {
+            yield return new WaitForSeconds(1.0f);
+        }
+
         private void onAllCollected()
         {
             var mes = new PointsTableMessage();
